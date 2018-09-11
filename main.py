@@ -1,9 +1,12 @@
+import discord
 from discord.ext import commands
 import asyncio
+import os
 
-token = ""
-with open("keys/token", 'r') as keys:
-    token = keys.read().split('\n')[0]
+# token = ""
+# with open("keys/token", 'r') as keys:
+#     token = keys.read().split('\n')[0]
+token = os.environ.get("DISCORDDOGBOT")
 
 bot = commands.Bot(command_prefix='!')
 
@@ -21,12 +24,18 @@ async def on_message(message):
 
 @bot.command()
 async def test(ctx):
+    """
+    This command is used to check if the bot is functioning properly
+    """
     user = ctx.message.author.id
     user = "<@" + str(user) + ">"
     await ctx.send('I am alive and I heard you! {}'.format(user))
 
 @bot.command()
 async def count(ctx):
+    """
+    Returns the number of messages by the user from the last 100 messages in channel
+    """
     user = ctx.message.author.id
     user = "<@" + str(user) + ">"
     counter = 0
@@ -38,7 +47,13 @@ async def count(ctx):
 
 @bot.command()
 async def doggo(ctx):
-    ctx.send('Yet to be implemented')
-    # TODO use Reddit API to fetch pics of dogs and then display them 
+    """
+    Returns an image of a dog
+    """
+    embed = discord.Embed(description="Hello There", color=0x00ff00, type="rich")
+    image = discord.File("images/image001.jpg", filename="Dog.jpg")
+    await ctx.send(embed=embed, file=image)
+
+## TODO: Fetch top photos from the Reddit API
 
 bot.run(token)
