@@ -3,11 +3,7 @@ from discord.ext import commands
 import asyncio
 import os
 
-# token = ""
-# with open("keys/token", 'r') as keys:
-#     token = keys.read().split('\n')[0]
 token = os.environ.get("DISCORDDOGBOT")
-
 bot = commands.Bot(command_prefix='!')
 
 @bot.event
